@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 public class ResponseAuthPojo {
-	private String roleName;
-	private String updatedAt;
-	private String createdAt;
-	private int id;
-	private Object deletedAt;
+	private String type;
+	private String accessToken;
+	private String refreshToken;
+
 }
