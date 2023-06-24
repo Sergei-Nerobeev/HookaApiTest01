@@ -19,4 +19,6 @@ public class ResponseRolePojo {
 	private String deletedAt;
 	@JsonProperty("role_name")
 	private String roleName;
+//	private String accessToken;
+
 }
