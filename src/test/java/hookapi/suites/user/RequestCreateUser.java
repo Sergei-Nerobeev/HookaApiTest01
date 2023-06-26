@@ -1,4 +1,4 @@
-package hookapi.suites.user.pojo;
+package hookapi.suites.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
