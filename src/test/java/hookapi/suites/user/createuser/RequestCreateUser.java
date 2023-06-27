@@ -1,4 +1,4 @@
-package hookapi.suites.user;
+package hookapi.suites.user.createuser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
