@@ -1,4 +1,4 @@
-package hookapi.entity.role.service;
+package hookapi.service;
 
 import hookapi.entity.role.pojo.RequestRolePojo;
 import hookapi.entity.role.pojo.ResponseRolePojo;

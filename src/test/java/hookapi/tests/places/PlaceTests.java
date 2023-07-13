@@ -11,13 +11,10 @@ import org.testng.annotations.Test;
 import static org.hamcrest.Matchers.greaterThan;
 
 public class PlaceTests {
-    private final UserGenerator userGenerator = UserGenerator.getInstance();
-    private UserDTO user;
     private int placeId;
 
     @BeforeTest
     public void setUp() {
-        user = userGenerator.createUser();
         RestAssured
                 .given()
                 .spec(BaseSpecification.baseDefautlRequestSpecification())
