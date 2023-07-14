@@ -21,6 +21,17 @@ public class BaseSpecification {
         .log(LogDetail.ALL)
         .build();
   }
+
+  public static RequestSpecification baseDefautlRequestSpecification(){
+      //TODO: move url & port to env
+    return new RequestSpecBuilder()
+        .setBaseUri("http://localhost")
+        .setPort(8080)
+        .setBasePath(basePath)
+        .setContentType(ContentType.JSON)
+        .log(LogDetail.ALL)
+        .build();
+  }
   public static ResponseSpecification baseResponseSpecification(){
     return new ResponseSpecBuilder().log(LogDetail.ALL).build();
   }
