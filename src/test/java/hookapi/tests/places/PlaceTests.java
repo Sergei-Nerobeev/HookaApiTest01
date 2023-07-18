@@ -1,8 +1,7 @@
 package hookapi.tests.places;
 
-import hookapi.DTO.UserDTO.UserDTO;
-import hookapi.service.UserGenerator;
 import hookapi.spec.BaseSpecification;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeTest;
@@ -13,9 +12,8 @@ import java.util.ArrayList;
 import static org.hamcrest.Matchers.greaterThan;
 
 public class PlaceTests {
-    private ArrayList<?> placeId;
-//    private int placeId;
-
+    private ArrayList<?> placesId;
+    Dotenv dotenv = Dotenv.load();
     @BeforeTest
     public void setUp() {
         RestAssured
@@ -24,10 +22,9 @@ public class PlaceTests {
                 .then()
                 .spec(BaseSpecification.baseResponseSpecification());
     }
-
     @Test
     public void test01GetAllPlacesTest() {
-        placeId = RestAssured
+        placesId = RestAssured
                 .get("/place/get/all")
                 .then()
                 .log().all()
@@ -37,14 +34,14 @@ public class PlaceTests {
                 .extract()
                 .body().path("$.id");
     }
-
-    @Test(dependsOnMethods = {"test01GetAllPlacesTest"})
+    @Test
     public void test02GetPlaceByIdTest() {
         RestAssured
-                .get("/place/get/{id}", placeId)
+                .get("/place/get/{id}", dotenv.get("PLACE_ID"))
                 .then()
                 .log().all()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK);
     }
+
 }
