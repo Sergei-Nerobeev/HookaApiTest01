@@ -21,5 +21,15 @@ public class RoleGenerator {
         .statusCode(200)
         .extract().response().as(ResponseRolePojo.class);
   }
-
+  RequestRolePojo requestOwnerRolePojo = RequestRolePojo.builder().roleName("OWNER").build();
+  public ResponseRolePojo createNewOwnerRole(String token){
+    return given()
+        .when().contentType(ContentType.JSON)
+        .header("Authorization", "Bearer " + token)
+        .body(requestOwnerRolePojo).log().all()
+        .post("/roles/create")
+        .then().log().all()
+        .statusCode(200)
+        .extract().response().as(ResponseRolePojo.class);
+  }
 }

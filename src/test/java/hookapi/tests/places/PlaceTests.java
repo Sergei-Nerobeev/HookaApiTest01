@@ -8,10 +8,13 @@ import org.apache.http.HttpStatus;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.Matchers.greaterThan;
 
 public class PlaceTests {
-    private int placeId;
+    private ArrayList<?> placeId;
+//    private int placeId;
 
     @BeforeTest
     public void setUp() {

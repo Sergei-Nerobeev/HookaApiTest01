@@ -1,5 +1,6 @@
 package hookapi.spec;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -12,21 +13,10 @@ import static io.restassured.RestAssured.basePath;
 
 public class BaseSpecification {
 
-  public static RequestSpecification baseRequestSpecification(String baseUri, int port){
-    return new RequestSpecBuilder()
-        .setBaseUri(baseUri)
-        .setPort(port)
-        .setBasePath(basePath)
-        .setContentType(ContentType.JSON)
-        .log(LogDetail.ALL)
-        .build();
-  }
-
   public static RequestSpecification baseDefautlRequestSpecification(){
-      //TODO: move url & port to env
+    Dotenv dotenv = Dotenv.load();
     return new RequestSpecBuilder()
-        .setBaseUri("http://localhost")
-        .setPort(8080)
+        .setBaseUri(dotenv.get("LOCAL_URL"))
         .setBasePath(basePath)
         .setContentType(ContentType.JSON)
         .log(LogDetail.ALL)

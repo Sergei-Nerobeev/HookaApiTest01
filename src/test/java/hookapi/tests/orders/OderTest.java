@@ -1,4 +1,4 @@
-package hookapi.tests;
+package hookapi.tests.orders;
 
 
 import org.testng.annotations.Test;
