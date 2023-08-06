@@ -15,4 +15,5 @@ public class TokenHolder {
   public String getToken() {
     return token;
   }
+
 }

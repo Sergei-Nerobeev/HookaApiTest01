@@ -1,5 +1,6 @@
 package hookapi.entity.user.updateuser;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,12 +9,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder @AllArgsConstructor @NoArgsConstructor
-public class RequestUpdateUser{
+@JsonIgnoreProperties(ignoreUnknown = true)
 
-	@JsonProperty("name")
-	private String name;
+public class RequestUpdateUser {
 
-	public String getName(){
-		return name;
-	}
+
+@JsonProperty("name")
+private String name;
+
 }
+

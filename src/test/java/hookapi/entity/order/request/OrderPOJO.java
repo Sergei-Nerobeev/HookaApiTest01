@@ -7,26 +7,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Builder
-public class RequestCreateOrder {
-
+public class OrderPOJO {
 @JsonProperty("place_id")
 private PlaceId placeId;
-
 @JsonProperty("user_id")
 private UserId userId;
-
-@JsonProperty("orderStatus")
-private String orderStatus;
-
-@JsonProperty("comment")
-private Comment comment;
-
 @JsonProperty("order_time")
 private String orderTime;
-
-
+@JsonProperty("comment")
+private Comment comment;
+@JsonProperty("taken_at")
+private LocalDate takenAt;
+@JsonProperty("completed_at")
+private LocalDate completedAt;
+@JsonProperty("cancelled_at")
+private LocalDate cancelledAt;
+@JsonProperty("order_status")
+private OrderStatus orderStatus;
 }

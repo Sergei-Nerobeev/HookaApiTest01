@@ -1,4 +1,4 @@
-package hookapi.tests;
+package hookapi.oldtestversion;
 
 import hookapi.entity.auth.pojo.RequestAuthPojo;
 import hookapi.entity.auth.pojo.ResponseAuthPojo;

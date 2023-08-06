@@ -2,10 +2,8 @@ package hookapi.DTO.UserDTO;
 
 
 import hookapi.entity.user.pojo.ResponseCreateUser;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import hookapi.service.UserGenerator;
+import lombok.*;
 
 /**
  * DTO - Data Transfer Object
@@ -13,9 +11,10 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @ToString
 public class UserDTO {
+
     private ResponseCreateUser user;
     private String authToken;
 }

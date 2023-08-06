@@ -1,19 +1,16 @@
-package hookapi.entity.place;
+package hookapi.entity.order.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import hookapi.entity.order.response.Address;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
-public class ResponseCreatePlace {
+@Data
+public class PlaceId{
 	@JsonProperty("id")
 	private int id;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("phone")
-	private Object phone;
+	private String phone;
 	@JsonProperty("address")
 	private Address address;
 	@JsonProperty("created_at")
@@ -31,9 +28,6 @@ public class ResponseCreatePlace {
 	@JsonProperty("owner")
 	private Object owner;
 	@JsonProperty("rating")
-	private Object rating;
-
-
-
+	private double rating;
 
 }

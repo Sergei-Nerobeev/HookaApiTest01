@@ -15,4 +15,7 @@ public class UserId{
 
 	@JsonProperty("id")
 	private int id;
+
+public UserId(String s) {
+}
 }
