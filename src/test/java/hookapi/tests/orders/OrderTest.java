@@ -54,7 +54,6 @@ public void setUp() {
 	int idNewAdminRole = responseRolePojo.getId();
 	dbConnector.updateUserRole(idNewUser, idNewAdminRole);
 }
-
 @Test
 public void test01CreateOrder() {
 	// Создаем Map для представления данных заказа
@@ -84,6 +83,7 @@ public void test01CreateOrder() {
 		.assertThat()
 		.statusCode(HttpStatus.SC_OK);
 }
+
 
 
 @Test(dependsOnMethods = {"test01CreateOrder"})//TODO

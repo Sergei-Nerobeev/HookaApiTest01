@@ -57,7 +57,7 @@ public class UserTest {
 			.then().log().all().assertThat().statusCode(HttpStatus.SC_OK);
 	}
 
-	@Test(priority = 1, description = "POST/user/create")
+	@Test(priority = 1)
 	public void test01createUser() {
 		// Метод setUp() выполняет этот тестовый метод
 	}
