@@ -1,6 +1,7 @@
 package hookapi.tests.places;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
+import hookapi.entity.order.response.Address;
 import hookapi.entity.place.RequestCreatePlace;
 import hookapi.entity.place.ResponseCreatePlace;
 import hookapi.entity.role.pojo.ResponseRolePojo;
@@ -30,6 +31,8 @@ private ResponseCreateUser responseCreateUser = userGenerator.createNewUser();
 private DbConnector dbConnector = DbConnector.getDbConnector();
 private Dotenv dotenv = Dotenv.load();
 private long idPlace;
+private String newToken;
+
 @BeforeTest
 public void setUp() {
     RestAssured.given()
@@ -42,26 +45,25 @@ public void setUp() {
     tokenHolder.setToken(token);
 
     ResponseRolePojo responseRolePojo = roleGenerator.createNewAdminRole(token);
-
     int idNewAdminRole = responseRolePojo.getId();
     dbConnector.updateUserRole(idNewUser, idNewAdminRole);
-}
-@Test(priority = 1)
-public void test01CreatePlace(){
 
     UserDTO userDTO = new UserDTO(responseCreateUser, tokenHolder.getToken());
     ResponseCreateUser dtoUser = userDTO.getUser();
     String newToken = userGenerator.requestAuthTokenForNewUser();
+}
+@Test(priority = 1)
+public void test01CreatePlace(){
 
-    Map<String, Object> address = new HashMap<>();
-    address.put("id", "");
-    address.put("country", "USA");
-    address.put("address", "LA");
-    address.put("lat", 1.0);
-    address.put("lng", 2.0);
-    address.put("created_at", "");
-    address.put("updated_at", "");
-    address.put("deleted_at", "");
+    Address address = new Address();
+    address.setId("");
+    address.setCountry("USA");
+    address.setAddress("LA");
+    address.setLat(1.0);
+    address.setLng(2.0);
+    address.setCreatedAt("");
+    address.setUpdatedAt("");
+    address.setDeletedAt("");
 
     RequestCreatePlace place = new RequestCreatePlace();
     place.setName("Admin signature");

@@ -14,11 +14,11 @@ import java.time.LocalDate;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ResponseCreatePlace {
 	@JsonProperty("id")
-	private int id;
+	private long id;
 	@JsonProperty("name")
 	private String name;
 	@JsonProperty("phone")
-	private Object phone;
+	private String phone;
 	@JsonProperty("address")
 	private Address address;
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -27,17 +27,17 @@ public class ResponseCreatePlace {
 	@JsonProperty("updated_at")
 	private LocalDate updatedAt;
 	@JsonProperty("deleted_at")
-	private Object deletedAt;
+	private String deletedAt;
 	@JsonProperty("start_time")
-	private Object startTime;
+	private String startTime;
 	@JsonProperty("end_time")
-	private Object endTime;
+	private String endTime;
 	@JsonProperty("logo_url")
-	private Object logoUrl;
+	private String logoUrl;
 	@JsonProperty("owner")
 	private Object owner;
 	@JsonProperty("rating")
-	private Object rating;
+	private String rating;
 
 
 

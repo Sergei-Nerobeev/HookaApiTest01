@@ -1,4 +1,4 @@
-package hookapi.DTO.UserDTO;
+package hookapi.DTO;
 
 import hookapi.entity.order.response.ResponseCreateOrder;
 import lombok.*;
@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class OrderDTO {
-private ResponseCreateOrder responseCreateOrder;
+private ResponseCreateOrder order;
 }

@@ -12,7 +12,7 @@ public class Comment{
 	@JsonProperty("updated_at")
 	private String updatedAt;
 	@JsonProperty("deleted_at")
-	private Object deletedAt;
+	private String deletedAt;
 	@JsonProperty("text")
 	private String text;
 

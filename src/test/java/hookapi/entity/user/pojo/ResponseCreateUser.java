@@ -19,13 +19,13 @@ public class ResponseCreateUser{
 	private String phone;
 
 	@JsonProperty("name")
-	private Object name;
+	private String name;
 
 	@JsonProperty("rating")
-	private Object rating;
+	private String rating;
 
 	@JsonProperty("created_at")
-	private String createdAt;
+	private Object createdAt;
 
 	@JsonProperty("id")
 	private int id;

@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import static io.restassured.RestAssured.given;
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @NoArgsConstructor
 public class RoleGenerator {
   RequestRolePojo requestRolePojo = RequestRolePojo.builder().roleName("ADMIN").build();
   public ResponseRolePojo createNewAdminRole(String token){
@@ -32,4 +32,26 @@ public class RoleGenerator {
         .statusCode(200)
         .extract().response().as(ResponseRolePojo.class);
   }
+  RequestRolePojo requestMasterRolePojo = RequestRolePojo.builder().roleName("HOOKA_MASTER").build();
+  public ResponseRolePojo createHMasterRole(String token){
+    return given()
+      .when().contentType(ContentType.JSON)
+      .header("Authorization", "Bearer " + token)
+      .body(requestMasterRolePojo).log().all()
+      .post("/roles/create")
+      .then().log().all()
+      .statusCode(200)
+      .extract().response().as(ResponseRolePojo.class);
+
+}  RequestRolePojo requestUserRolePojo = RequestRolePojo.builder().roleName("USER").build();
+  public ResponseRolePojo createUserRole(String token){
+    return given()
+      .when().contentType(ContentType.JSON)
+      .header("Authorization", "Bearer " + token)
+      .body(requestMasterRolePojo).log().all()
+      .post("/roles/create")
+      .then().log().all()
+      .statusCode(200)
+      .extract().response().as(ResponseRolePojo.class);
+}
 }

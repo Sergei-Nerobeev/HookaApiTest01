@@ -1,6 +1,6 @@
 package hookapi.service;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
 import hookapi.entity.user.pojo.ResponseCreateUser;
 import hookapi.jdbc.DbConnector;
 import hookapi.spec.BaseSpecification;
@@ -37,7 +37,6 @@ public class UserGenerator {
         var token = requestAuthTokenForNewUser();
         return new UserDTO(user, token);
     }
-
     public UserDTO createAdmin() {
         var user = given().spec(BaseSpecification.baseDefautlRequestSpecification())
           .when().body(randomUser).post(dotenv.get("USER_CREATE"))
@@ -46,12 +45,21 @@ public class UserGenerator {
         var role = new RoleGenerator().createNewAdminRole(token);
         DbConnector.getDbConnector().updateUserRole(user.getId(), role.getId());
         return new UserDTO(user, token);
-    }public UserDTO createOwner() {
+    }
+    public UserDTO createOwner() {
         var user = given().spec(BaseSpecification.baseDefautlRequestSpecification())
           .when().body(randomUser).post(dotenv.get("USER_CREATE"))
           .then().statusCode(200).log().all().extract().response().as(ResponseCreateUser.class);
         var token = requestAuthTokenForNewUser();
         var role = new RoleGenerator().createNewOwnerRole(token);
+        DbConnector.getDbConnector().updateUserRole(user.getId(), role.getId());
+        return new UserDTO(user, token);
+    }   public UserDTO createHMaster() {
+        var user = given().spec(BaseSpecification.baseDefautlRequestSpecification())
+          .when().body(randomUser).post(dotenv.get("USER_CREATE"))
+          .then().statusCode(200).log().all().extract().response().as(ResponseCreateUser.class);
+        var token = requestAuthTokenForNewUser();
+        var role = new RoleGenerator().createHMasterRole(token);
         DbConnector.getDbConnector().updateUserRole(user.getId(), role.getId());
         return new UserDTO(user, token);
     }

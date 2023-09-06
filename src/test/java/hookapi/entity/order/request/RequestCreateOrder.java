@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 public class RequestCreateOrder {
 
 @JsonProperty("place_id")
-private PlaceId placeId;
+private long placeId;
 
 @JsonProperty("user_id")
-private UserId userId;
+private int userId;
 
 @JsonProperty("orderStatus")
 private String orderStatus;

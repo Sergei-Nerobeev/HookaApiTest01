@@ -8,14 +8,13 @@ import hookapi.utils.DataDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.sql.Date;
 import java.time.LocalDate;
-;
+
 import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
+
 
 public class ResponseCreateOrder {
 
@@ -32,7 +31,7 @@ public class ResponseCreateOrder {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@JsonDeserialize(using = DataDeserializer.class)
 	@JsonProperty("created_at")
-	private Date createdAt;
+	private LocalDate createdAt;
 	@JsonProperty("updated_at")
 	private LocalDate updatedAt;
 	@JsonProperty("deleted_at")
@@ -45,14 +44,6 @@ public class ResponseCreateOrder {
 	private LocalTime orderTime;
 	@JsonProperty("comment")
 	private Comment comment;
-
-
-
-
-
-
-
-
-
+	//TODO roles
 
 }

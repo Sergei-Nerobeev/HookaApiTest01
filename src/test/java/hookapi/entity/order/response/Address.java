@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 public class Address{
 	@JsonProperty("id")
-	private int id;
+	private String id;
 	@JsonProperty("country")
 	private String country;
 	@JsonProperty("address")
-	private Object address;
+	private String address;
 	@JsonProperty("lat")
 	private double lat;
 	@JsonProperty("lng")

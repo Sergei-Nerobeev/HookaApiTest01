@@ -1,6 +1,8 @@
 package hookapi.tests.checkorderid;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
+import hookapi.entity.order.response.Address;
+import hookapi.entity.order.response.ResponseCreateOrder;
 import hookapi.entity.place.RequestCreatePlace;
 import hookapi.entity.place.ResponseCreatePlace;
 import hookapi.entity.role.pojo.ResponseRolePojo;
@@ -13,6 +15,7 @@ import hookapi.token.TokenHolder;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -33,6 +36,8 @@ private DbConnector dbConnector = DbConnector.getDbConnector();
 private Dotenv dotenv = Dotenv.load();
 private long idPlace;
 private int idUser;
+private long idOrder;
+private String newToken;
 
 @BeforeTest
 public void setUp() {
@@ -48,11 +53,15 @@ public void setUp() {
 	String token = userGenerator.requestAuthTokenForNewUser();
 	tokenHolder.setToken(token);
 
-	// Создание owner и привязка его к пользователю
+	// Создание Owner и привязка его к пользователю
 	ResponseRolePojo responseRolePojo = roleGenerator.createNewOwnerRole(token);
 	int idNewOwnerRole = responseRolePojo.getId();
 	dbConnector.updateUserRole(idNewUser, idNewOwnerRole);
-}
+
+	// Получение и установка токена для нового пользователя с ролью Owner
+	UserDTO userDTO = new UserDTO(responseCreateUser, tokenHolder.getToken());
+	ResponseCreateUser dtoUser = userDTO.getUser();
+	}
 
 @AfterTest
 public void tearDown() { // TODO
@@ -69,32 +78,26 @@ public void tearDown() { // TODO
 }
 
 @Test(priority = 1)
-public void test01CreateUser() {
-	// Метод setUp() выполняет этот тестовый метод
-}
+public void test01CreateUser() {} // Метод setUp() выполняет этот тестовый метод
 
-@Test(priority = 2)
+@Test(priority = 2, dependsOnMethods = {"test01CreateUser"})
 public void test02CreatePlace() {
 
-	UserDTO userDTO = new UserDTO(responseCreateUser, tokenHolder.getToken());
-	ResponseCreateUser dtoUser = userDTO.getUser();
-	String newToken = userGenerator.requestAuthTokenForNewUser();
-	int idUser = dtoUser.getId();
-	this.idUser = idUser;
-
-	Map<String, Object> address = new HashMap<>();
-	address.put("id", "");
-	address.put("country", "Russia");
-	address.put("address", "Moscow");
-	address.put("lat", 1.0);
-	address.put("lng", 2.0);
-	address.put("created_at", "");
-	address.put("updated_at", "");
-	address.put("deleted_at", "");
+	Address address = new Address();
+	address.setId("");
+	address.setCountry("USA");
+	address.setAddress("NY");
+	address.setLat(1.0);
+	address.setLng(2.0);
+	address.setCreatedAt("");
+	address.setUpdatedAt("");
+	address.setDeletedAt("");
 
 	RequestCreatePlace place = new RequestCreatePlace();
 	place.setName("OWNER signature");
 	place.setAddress(address);
+
+	this.newToken = userGenerator.requestAuthTokenForNewUser();
 
 	ResponseCreatePlace responseCreatePlace = given()
 		.log().all()
@@ -129,22 +132,44 @@ public void test03CreateOrder() {
 	requestBody.put("comment", comment);
 	requestBody.put("orderStatus", "NEW");
 
-	RestAssured.given()
-		.log().all()
-		.header("Authorization", "Bearer " + tokenHolder.getToken())
-		.contentType(ContentType.JSON)
-		.body(requestBody)
-		.when()
-		.post(dotenv.get("ORDER_CREATE"))
-		.then()
-		.log().all()
-		.assertThat()
-		.statusCode(HttpStatus.SC_OK);
+	ResponseCreateOrder responseCreateOrder =
+		(ResponseCreateOrder) given()
+			.log().all()
+			.header("Authorization", "Bearer " + tokenHolder.getToken())
+			.contentType(ContentType.JSON)
+			.body(requestBody)
+			.when()
+			.post(dotenv.get("ORDER_CREATE"))
+			.then()
+			.log().all()
+			.assertThat()
+			.statusCode(HttpStatus.SC_OK)
+			.extract().response().as(ResponseCreateOrder.class);
 
-	Assert.assertEquals(idUser, (int) userId.get("id"), "idUser doesn't match");
-	Assert.assertEquals(idPlace, (long) placeId.get("id"), "idPlace doesn't match");
+	this.idOrder = responseCreateOrder.getId();
 
 	Assert.assertEquals(idUser, (int) userId.get("id"), "idUser doesn't match. Expected: " + idUser + ", Actual: " + userId.get("id"));
 	Assert.assertEquals(idPlace, (long) placeId.get("id"), "idPlace doesn't match. Expected: " + idPlace + ", Actual: " + placeId.get("id"));
+}
+@Test(priority = 4, dependsOnMethods = {"test03CreateOrder"})//TODO
+public void test04GetOrderById() {
+
+	ValidatableResponse validatableResponse = RestAssured
+		.given().header("Authorization", "Bearer " + newToken)
+		.get(dotenv.get("ORDER_GET_BY_ID") + idOrder)
+		.then()
+		.log().all()
+		.assertThat().statusCode(HttpStatus.SC_OK);
+
+}
+@Test(priority = 5, dependsOnMethods = {"test02CreatePlace"})
+public void test05GetPlaceById() {
+	ValidatableResponse validatableResponse = RestAssured
+		.given().header("Authorization", "Bearer " + newToken)
+		.get(dotenv.get("PLACE_GET_BY_ID") + idPlace)
+		.then()
+		.log().all()
+		.assertThat().statusCode(HttpStatus.SC_OK);
+
 }
 }

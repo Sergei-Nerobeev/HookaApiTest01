@@ -1,19 +1,11 @@
 package hookapi.token;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data @NoArgsConstructor
 public class TokenHolder {
-  private String token;
+private String token;
 
-  public TokenHolder() {
-    this.token = null; // Изначально токен неизвестен
-  }
-
-  public void setToken(String token) {
-    this.token = token;
-    System.out.println(token);
-  }
-
-  public String getToken() {
-    return token;
-  }
 
 }

@@ -1,6 +1,6 @@
 package hookapi.oldtestversion;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
 import hookapi.entity.role.pojo.ResponseRolePojo;
 import hookapi.entity.user.pojo.ResponseCreateUser;
 import hookapi.entity.user.updateuser.RequestUpdateUser;
@@ -13,10 +13,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
-import org.junit.jupiter.api.DisplayName;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;

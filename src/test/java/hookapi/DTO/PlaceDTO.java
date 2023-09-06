@@ -1,4 +1,4 @@
-package hookapi.DTO.UserDTO;
+package hookapi.DTO;
 
 
 import hookapi.entity.place.ResponseCreatePlace;

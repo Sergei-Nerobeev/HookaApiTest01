@@ -12,6 +12,4 @@ public class PlaceId{
 	@JsonProperty("id")
 	private int id;
 
-public PlaceId(String placeId) {
-}
 }

@@ -1,6 +1,6 @@
 package hookapi.tests.users;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
 import hookapi.entity.role.pojo.ResponseRolePojo;
 import hookapi.entity.user.pojo.ResponseCreateUser;
 import hookapi.entity.user.updateuser.RequestUpdateUser;

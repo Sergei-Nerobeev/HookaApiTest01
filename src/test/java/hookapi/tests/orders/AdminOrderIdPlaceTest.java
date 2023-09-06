@@ -1,6 +1,7 @@
 package hookapi.tests.orders;
 
-import hookapi.DTO.UserDTO.UserDTO;
+import hookapi.DTO.UserDTO;
+import hookapi.entity.order.response.Address;
 import hookapi.entity.order.response.ResponseCreateOrder;
 import hookapi.entity.place.RequestCreatePlace;
 import hookapi.entity.place.ResponseCreatePlace;
@@ -37,9 +38,8 @@ private ResponseCreateUser responseCreateUser;
 private RequestCreatePlace requestCreatePlace;
 private long idPlace;
 private long idUser;
-
 private long idOrder;
-
+private String newToken;
 
 @BeforeTest
 public void setUp() {
@@ -62,6 +62,11 @@ public void setUp() {
 	int idNewUser = responseCreateUser.getId();
 	int idNewAdminRole = responseRolePojo.getId();
 	dbConnector.updateUserRole(idNewUser, idNewAdminRole);
+
+  // Получение и установка токена для нового пользователя с ролью Админ
+	UserDTO userDTO = new UserDTO(responseCreateUser, tokenHolder.getToken());
+	ResponseCreateUser dtoUser = userDTO.getUser();
+	String newToken = userGenerator.requestAuthTokenForNewUser();
 }
 @AfterTest
 public void tearDown() {
@@ -72,19 +77,15 @@ public void tearDown() {
 @Test(priority = 1)
 public void test01CreatePlace(){
 
-	UserDTO userDTO = new UserDTO(responseCreateUser, tokenHolder.getToken());
-	ResponseCreateUser dtoUser = userDTO.getUser();
-	String newToken = userGenerator.requestAuthTokenForNewUser();
-
-	Map<String, Object> address = new HashMap<>();
-	address.put("id", "");
-	address.put("country", "USA");
-	address.put("address", "LA");
-	address.put("lat", 1.0);
-	address.put("lng", 2.0);
-	address.put("created_at", "");
-	address.put("updated_at", "");
-	address.put("deleted_at", "");
+	Address address = new Address();
+	address.setId("");
+	address.setCountry("USA");
+	address.setAddress("LA");
+	address.setLat(1.0);
+	address.setLng(2.0);
+	address.setCreatedAt("");
+	address.setUpdatedAt("");
+	address.setDeletedAt("");
 
 	RequestCreatePlace place = new RequestCreatePlace();
 	place.setName("Admin signature");
