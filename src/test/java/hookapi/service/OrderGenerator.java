@@ -1,30 +1,36 @@
-/*
 package hookapi.service;
 
 import hookapi.DTO.OrderDTO;
-import hookapi.DTO.UserDTO;
 import hookapi.entity.order.response.ResponseCreateOrder;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import lombok.Data;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-
+@Data
 public class OrderGenerator {
-//private PlaceGenerator place = new PlaceGenerator();
-private ResponseCreateOrder order = new ResponseCreateOrder();
-public OrderDTO createOrder(){
+public static OrderGenerator orderGenerator;
+private OrderGenerator(){}
+public static OrderGenerator getInstance() {
+	if (orderGenerator == null) {
+		orderGenerator = new OrderGenerator();
+	}
+	return orderGenerator;
+}
+public OrderDTO createOrder(long idPlace,int idUser,String token,Dotenv dotenv){
+
+//	ResponseCreateOrder order = new ResponseCreateOrder();
 
 	Map<String, Object> requestBody = new HashMap<>();
 	Map<String, Object> placeId = new HashMap<>();
 	placeId.put("id", idPlace);
 	Map<String, Object> userId = new HashMap<>();
-	userId.put("id", responseCreateUser.getId());
+	userId.put("id", idUser);
 	Map<String, Object> comment = new HashMap<>();
 	comment.put("text", "Работает создание заказа");
 
@@ -33,10 +39,6 @@ public OrderDTO createOrder(){
 	requestBody.put("order_time", "2023-06-06T10:00:00");
 	requestBody.put("comment", comment);
 	requestBody.put("orderStatus", "NEW");
-
-	Dotenv dotenv = Dotenv.load();
-	UserDTO newOwner = UserGenerator.getInstance().createOwner();
-	var token = newOwner.getAuthToken();
 
 	ValidatableResponse validatableResponse = given()
 		.log().all()
@@ -49,8 +51,7 @@ public OrderDTO createOrder(){
 		.assertThat()
 		.statusCode(HttpStatus.SC_OK);
 
-	return new OrderDTO(order);
+	return new OrderDTO();
 
 }
 }
-*/

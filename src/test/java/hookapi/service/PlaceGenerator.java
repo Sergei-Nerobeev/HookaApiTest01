@@ -1,7 +1,6 @@
 package hookapi.service;
 
 import hookapi.DTO.PlaceDTO;
-import hookapi.DTO.UserDTO;
 import hookapi.entity.order.response.Address;
 import hookapi.entity.place.ResponseCreatePlace;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -12,10 +11,16 @@ import org.apache.http.HttpStatus;
 import static io.restassured.RestAssured.given;
 @Data
 public class PlaceGenerator {
+public static PlaceGenerator placeGenerator;
+private PlaceGenerator(){}
+public static PlaceGenerator getInstance() {
+	if (placeGenerator == null) {
+		placeGenerator = new PlaceGenerator();
+	}
+	return placeGenerator;
+}
 
-private ResponseCreatePlace place = new ResponseCreatePlace();
-
-public PlaceDTO createPlace(String token,Dotenv dotenv)
+public PlaceDTO createPlace(String token, Dotenv dotenv)
 {
 	Address address = new Address();
 	address.setId("");
@@ -26,6 +31,8 @@ public PlaceDTO createPlace(String token,Dotenv dotenv)
 	address.setCreatedAt("");
 	address.setUpdatedAt("");
 	address.setDeletedAt("");
+
+	ResponseCreatePlace place = new ResponseCreatePlace();
 
 	place.setName("OWNER signature");
 	place.setAddress(address);
@@ -43,6 +50,7 @@ public PlaceDTO createPlace(String token,Dotenv dotenv)
 		.statusCode(HttpStatus.SC_OK)
 		.extract().response().as(ResponseCreatePlace.class);
 	return new PlaceDTO(place);
+
 }
 
 }
