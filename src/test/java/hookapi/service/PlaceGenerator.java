@@ -3,19 +3,19 @@ package hookapi.service;
 import hookapi.DTO.PlaceDTO;
 import hookapi.DTO.UserDTO;
 import hookapi.entity.order.response.Address;
-import hookapi.entity.place.RequestCreatePlace;
 import hookapi.entity.place.ResponseCreatePlace;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.http.ContentType;
+import lombok.Data;
 import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
-
+@Data
 public class PlaceGenerator {
 
 private ResponseCreatePlace place = new ResponseCreatePlace();
 
-public PlaceDTO createPlace()
+public PlaceDTO createPlace(String token,Dotenv dotenv)
 {
 	Address address = new Address();
 	address.setId("");
@@ -29,10 +29,6 @@ public PlaceDTO createPlace()
 
 	place.setName("OWNER signature");
 	place.setAddress(address);
-
-	Dotenv dotenv = Dotenv.load();
-	UserDTO newOwner = UserGenerator.getInstance().createOwner();
-	var token = newOwner.getAuthToken();
 
 	ResponseCreatePlace responseCreatePlace = given()
 		.log().all()
