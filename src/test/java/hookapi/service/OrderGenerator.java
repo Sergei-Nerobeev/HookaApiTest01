@@ -1,7 +1,6 @@
 package hookapi.service;
 
 import hookapi.DTO.OrderDTO;
-import hookapi.entity.order.response.ResponseCreateOrder;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
@@ -15,16 +14,14 @@ import static io.restassured.RestAssured.given;
 @Data
 public class OrderGenerator {
 public static OrderGenerator orderGenerator;
-private OrderGenerator(){}
+public OrderGenerator(){}
 public static OrderGenerator getInstance() {
 	if (orderGenerator == null) {
 		orderGenerator = new OrderGenerator();
 	}
 	return orderGenerator;
 }
-public OrderDTO createOrder(long idPlace,int idUser,String token,Dotenv dotenv){
-
-//	ResponseCreateOrder order = new ResponseCreateOrder();
+public void createOrder(long idPlace, int idUser, String token, Dotenv dotenv){
 
 	Map<String, Object> requestBody = new HashMap<>();
 	Map<String, Object> placeId = new HashMap<>();
@@ -40,7 +37,7 @@ public OrderDTO createOrder(long idPlace,int idUser,String token,Dotenv dotenv){
 	requestBody.put("comment", comment);
 	requestBody.put("orderStatus", "NEW");
 
-	ValidatableResponse validatableResponse = given()
+	ValidatableResponse responseCreateOrder = given()
 		.log().all()
 		.header("Authorization", "Bearer " + token)
 		.contentType(ContentType.JSON)
@@ -51,7 +48,7 @@ public OrderDTO createOrder(long idPlace,int idUser,String token,Dotenv dotenv){
 		.assertThat()
 		.statusCode(HttpStatus.SC_OK);
 
-	return new OrderDTO();
+	new OrderDTO();
 
 }
 }

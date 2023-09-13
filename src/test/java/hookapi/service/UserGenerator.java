@@ -12,11 +12,10 @@ import static io.restassured.RestAssured.given;
 @Data
 public class UserGenerator {
     private static UserGenerator generator;
-    private final RandomUser randomUser = new RandomUser();
+    private final RandomUser randomUser = new RandomUser(); // тута он!
     Dotenv dotenv = Dotenv.load();
     private UserGenerator() {
     }
-
     public static UserGenerator getInstance() {
         if (generator == null) {
             generator = new UserGenerator();
@@ -54,6 +53,7 @@ public class UserGenerator {
         var role = new RoleGenerator().createNewOwnerRole(token);
         DbConnector.getDbConnector().updateUserRole(user.getId(), role.getId());
         return new UserDTO(user, token);
+
     }   public UserDTO createHMaster() {
         var user = given().spec(BaseSpecification.baseDefautlRequestSpecification())
           .when().body(randomUser).post(dotenv.get("USER_CREATE"))
@@ -63,7 +63,6 @@ public class UserGenerator {
         DbConnector.getDbConnector().updateUserRole(user.getId(), role.getId());
         return new UserDTO(user, token);
     }
-
     public String requestAuthTokenForNewUser() {
         return given().spec(BaseSpecification.baseDefautlRequestSpecification())
             .contentType(ContentType.JSON).body(randomUser).post(dotenv.get("AUTH"))

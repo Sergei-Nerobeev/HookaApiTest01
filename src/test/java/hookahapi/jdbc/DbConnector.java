@@ -1,8 +1,9 @@
-package hookapi.jdbc;
+package hookahapi.jdbc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 public class DbConnector {
   private static DbConnector dbConnector;
   public static DbConnector getDbConnector(){
@@ -13,7 +14,7 @@ public class DbConnector {
   }
   private DbConnector(){}
 
-  public void updateUserRole(int idNewUser, int idNewRole) {
+  public void updateUserRoleSet(int idNewUser, int idNewRole) {
     String url = "jdbc:postgresql://localhost:5432/postgres";
     String username = "admin";
     String password = "123456";
@@ -30,23 +31,4 @@ public class DbConnector {
       e.printStackTrace();
     }
   }
-public void deleteUserRole(int userId, int roleId) {
-  String url = "jdbc:postgresql://localhost:5432/postgres";
-  String username = "admin";
-  String password = "123456";
-  String sql = "DELETE FROM public.users_roles_set WHERE user_entity_id = ? AND roles_set_id = ?";
-
-  try (Connection connection = DriverManager.getConnection(url, username, password);
-       PreparedStatement statement = connection.prepareStatement(sql)) {
-    statement.setInt(1, userId);
-    statement.setInt(2, roleId);
-
-    int rowsDeleted = statement.executeUpdate();
-    System.out.println("Rows deleted: " + rowsDeleted);
-  } catch (SQLException e) {
-    e.printStackTrace();
-  }
-}
-
-
 }

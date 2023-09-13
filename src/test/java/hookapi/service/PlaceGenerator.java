@@ -23,14 +23,10 @@ public static PlaceGenerator getInstance() {
 public PlaceDTO createPlace(String token, Dotenv dotenv)
 {
 	Address address = new Address();
-	address.setId("");
 	address.setCountry("USA");
 	address.setAddress("LA");
 	address.setLat(1.0);
 	address.setLng(2.0);
-	address.setCreatedAt("");
-	address.setUpdatedAt("");
-	address.setDeletedAt("");
 
 	ResponseCreatePlace place = new ResponseCreatePlace();
 
@@ -49,7 +45,8 @@ public PlaceDTO createPlace(String token, Dotenv dotenv)
 		.assertThat()
 		.statusCode(HttpStatus.SC_OK)
 		.extract().response().as(ResponseCreatePlace.class);
-	return new PlaceDTO(place);
+
+	return new PlaceDTO(responseCreatePlace);
 
 }
 

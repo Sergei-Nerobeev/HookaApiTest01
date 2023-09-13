@@ -4,14 +4,13 @@ import hookapi.DTO.PlaceDTO;
 import hookapi.DTO.UserDTO;
 import hookapi.service.PlaceGenerator;
 import hookapi.service.UserGenerator;
-import hookapi.spec.BaseSpecification;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-public class CreateOwnerPlace01Test {
+public class CreateOwnerPlaceTest {
 Dotenv dotenv = Dotenv.load();
 UserDTO newOwner = UserGenerator.getInstance().createOwner();
 String token = newOwner.getAuthToken();
@@ -28,5 +27,7 @@ PlaceDTO newPlace = PlaceGenerator.getInstance().createPlace(token,dotenv);
 }
 @Ignore
 @AfterTest
-public void tearDown(){}
+public void tearDown(){
+
+}
 }

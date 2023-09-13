@@ -11,10 +11,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 import java.time.LocalTime;
-
 @Data
 @AllArgsConstructor @NoArgsConstructor
-
 
 public class ResponseCreateOrder {
 
@@ -44,6 +42,5 @@ public class ResponseCreateOrder {
 	private LocalTime orderTime;
 	@JsonProperty("comment")
 	private Comment comment;
-	//TODO roles
 
 }

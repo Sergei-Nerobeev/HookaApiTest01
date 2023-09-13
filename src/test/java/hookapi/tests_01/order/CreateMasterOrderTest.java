@@ -11,21 +11,25 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
-public class CreateOwnerOrderTest {
+public class CreateMasterOrderTest {
+
 Dotenv dotenv = Dotenv.load();
 UserDTO newOwner = UserGenerator.getInstance().createOwner();
 String token = newOwner.getAuthToken();
 PlaceDTO newPlace = PlaceGenerator.getInstance().createPlace(token,dotenv);
+
 @Ignore
 @BeforeTest
 public void setUp(){
 }
 @Test
-public void test01createOwnerOrder() {
-
-  long idPlace = newPlace.getPlace().getId();
-	int idUser = newOwner.getUser().getId();
-	OrderGenerator.getInstance().createOrder(idPlace, idUser, token, dotenv);
+public void test01createMasterOrder() {
+	Dotenv dotenv2 = Dotenv.load();
+	UserDTO newHMaster = UserGenerator.getInstance().createAdmin();
+	String token2 = newHMaster.getAuthToken();
+	long idPlace = newPlace.getPlace().getId();
+	int idUser = newHMaster.getUser().getId();
+	OrderGenerator.getInstance().createOrder(idPlace, idUser, token2, dotenv2);
 
 }
 @Ignore

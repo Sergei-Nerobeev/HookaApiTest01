@@ -20,7 +20,7 @@ public class Address{
 	@JsonProperty("updated_at")
 	private String updatedAt;
 	@JsonProperty("deleted_at")
-	private Object deletedAt;
+	private String deletedAt;
 
 
 }

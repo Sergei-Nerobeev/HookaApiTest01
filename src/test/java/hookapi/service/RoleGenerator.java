@@ -32,26 +32,26 @@ public class RoleGenerator {
         .statusCode(200)
         .extract().response().as(ResponseRolePojo.class);
   }
-  RequestRolePojo requestMasterRolePojo = RequestRolePojo.builder().roleName("HOOKA_MASTER").build();
+  RequestRolePojo requestMasterRolePojo = RequestRolePojo.builder().roleName("HOOKAH_MASTER").build();
   public ResponseRolePojo createHMasterRole(String token){
     return given()
-      .when().contentType(ContentType.JSON)
-      .header("Authorization", "Bearer " + token)
-      .body(requestMasterRolePojo).log().all()
-      .post("/roles/create")
-      .then().log().all()
-      .statusCode(200)
-      .extract().response().as(ResponseRolePojo.class);
-
-}  RequestRolePojo requestUserRolePojo = RequestRolePojo.builder().roleName("USER").build();
+        .when().contentType(ContentType.JSON)
+        .header("Authorization", "Bearer " + token)
+        .body(requestMasterRolePojo).log().all()
+        .post("/roles/create")
+        .then().log().all()
+        .statusCode(200)
+        .extract().response().as(ResponseRolePojo.class);
+}
+  RequestRolePojo requestUserRolePojo = RequestRolePojo.builder().roleName("USER").build();
   public ResponseRolePojo createUserRole(String token){
     return given()
-      .when().contentType(ContentType.JSON)
-      .header("Authorization", "Bearer " + token)
-      .body(requestMasterRolePojo).log().all()
-      .post("/roles/create")
-      .then().log().all()
-      .statusCode(200)
-      .extract().response().as(ResponseRolePojo.class);
+        .when().contentType(ContentType.JSON)
+        .header("Authorization", "Bearer " + token)
+        .body(requestMasterRolePojo).log().all()
+        .post("/roles/create")
+        .then().log().all()
+        .statusCode(200)
+        .extract().response().as(ResponseRolePojo.class);
 }
 }
