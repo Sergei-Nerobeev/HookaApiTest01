@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CreateUserReqModel {
 
 @JsonProperty(value = "phone")
-private String phone;
+private String mobilPhone;
 
 @JsonProperty(value = "password")
 private String password;
