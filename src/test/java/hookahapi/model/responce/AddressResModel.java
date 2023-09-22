@@ -19,6 +19,15 @@ protected Long id;
 @JsonProperty(value = "country")
 private String country;
 
+@JsonProperty(value = "updated_at")
+private String updated;
+
+@JsonProperty(value = "created_at")
+private String created;
+
+@JsonProperty(value = "deleted_at")
+private String deleted;
+
 @NonNull
 @JsonProperty(value =  "address")
 private String address;

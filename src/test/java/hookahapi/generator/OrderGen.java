@@ -13,14 +13,6 @@ import static io.restassured.RestAssured.given;
 @Data
 public class OrderGen
 {
-public static OrderGen orderGen;
-public OrderGen(){}
-public static OrderGen getInstance() {
-	if (orderGen == null) {
-		orderGen = new OrderGen();
-	}
-	return orderGen;
-}
 public void createOrder(long idPlace, int idUser, String token, Dotenv dotenv){
 
 	Map<String, Object> requestBody = new HashMap<>();
@@ -48,9 +40,7 @@ public void createOrder(long idPlace, int idUser, String token, Dotenv dotenv){
 		.assertThat()
 		.statusCode(HttpStatus.SC_OK);
 
-	//new OrderDTO();
-
-}
+	}
 
 
 }

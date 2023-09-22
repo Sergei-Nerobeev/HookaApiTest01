@@ -17,7 +17,7 @@ public void test01CreatePlaceByUser(){
 
 	String token = user.getAuthToken();
   UserResModel userId = user.getUser();
-	placeGen.createNewPlace(token,dotenv);
+	placeGen.createPlace(token,dotenv);
 
 
 
