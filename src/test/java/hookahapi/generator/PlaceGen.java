@@ -1,17 +1,17 @@
 package hookahapi.generator;
 
-import hookahapi.dto.PlaceDto;
 import hookahapi.model.responce.AddressResModel;
 import hookahapi.model.responce.PlaceResModel;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.restassured.http.ContentType;
+import lombok.Getter;
 import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
-
+@Getter
 public class PlaceGen {
 
-public void createPlace(String token, Dotenv dotenv)
+public PlaceResModel createPlace(String token, Dotenv dotenv)
 {
 	AddressResModel address = new AddressResModel();
 	address.setCountry("USA");
@@ -19,16 +19,16 @@ public void createPlace(String token, Dotenv dotenv)
 	address.setLat(1.0);
 	address.setLng(2.0);
 
-	PlaceResModel placeResModel = new PlaceResModel();
+	PlaceResModel prm = new PlaceResModel();
 
-	placeResModel.setName("OWNER signature");
-	placeResModel.setAddress(address);
+	prm.setName("Some great place!");
+	prm.setAddress(address);
 
-  given()
+  PlaceResModel placeResModel = given()
 		.log().all()
 		.header("Authorization", "Bearer " + token)
 		.contentType(ContentType.JSON)
-		.body(placeResModel)
+		.body(prm)
 		.when()
 		.post(dotenv.get("PLACE_CREATE"))
 		.then()
@@ -37,6 +37,8 @@ public void createPlace(String token, Dotenv dotenv)
 		.statusCode(HttpStatus.SC_OK)
 		.extract().response().as(PlaceResModel.class);
 
-	}
+  long placeId = placeResModel.getId();
+	return placeResModel;
+}
 
 }
