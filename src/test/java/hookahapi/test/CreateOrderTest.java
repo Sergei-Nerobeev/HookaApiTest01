@@ -1,12 +1,10 @@
 package hookahapi.test;
 
-import hookahapi.dto.PlaceDto;
 import hookahapi.dto.UserDto;
 import hookahapi.generator.OrderGen;
 import hookahapi.generator.PlaceGen;
 import hookahapi.generator.UserGen;
 import hookahapi.model.responce.PlaceResModel;
-import hookahapi.model.responce.UserResModel;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.testng.annotations.Test;
 
@@ -25,6 +23,5 @@ long idPlace = prm.getId();
 public void test01CreateOrder()
 {
 	order.createOrder(idPlace,userId,token,dotenv);
-
 }
 }

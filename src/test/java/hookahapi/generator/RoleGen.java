@@ -6,7 +6,7 @@ import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 
-public class RoleGen { //TODO abc?
+public class RoleGen { //TODO abs?
 
 
 public RoleResModel createRole(String token,String roleNewName){

@@ -2,7 +2,6 @@ package hookahapi.dto;
 
 import hookahapi.model.responce.UserResModel;
 import lombok.*;
-
 /**
  * DTO - Data Transfer Object
  * Object to transfer between tests
