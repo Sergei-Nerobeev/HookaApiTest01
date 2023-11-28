@@ -13,7 +13,7 @@ import static io.restassured.RestAssured.given;
 public class UserGen {
 
 private static UserGen generator;
-private UserRandom userRandom = new UserRandom();
+private final UserRandom userRandom = new UserRandom();
 Dotenv dotenv = Dotenv.load();
 
 public UserGen() {}
